@@ -946,3 +946,88 @@ astype('category')로 변환할 수 있으며, 이는 다른 다양한 인코딩
         <img src="./b_classifier/images/goss.png" width="300" style="margin-left: 10px;">  
     </div>
 </div>
+
+<br/>
+<br/>
+<br/>
+
+## Ⅹ. 데이터 전처리
+### 1. StandardScaler()
+<code>from sklearn.preprocessing import StandardScaler</code>
+
+데이터의 평균을 0, 분산을 1이 되도록, 표준 정규분포를 따르게 하는 스케일링  
+± 1.96을 벗어나면 이상치로 판단한다.
+
+<br>
+<br>
+
+### 2. MinMaxScaler()
+<code>from sklearn.preprocessing import MinMaxScaler</code>
+
+데이터가 0~1 사이에 위치하도록 최소값은 0, 최대값은 1로 변환한다.  
+서로 다른 단위의 feature끼리 비교가 가능해진다.
+
+<br>
+<br>
+
+### 3. MaxAbsScaler()
+<code>from sklearn.preprocessing import MaxAbsScaler</code>
+
+모든 값을 -1~1 사이에 위치하도록, 절대값의 최소값은 0, 최대값은 1이 되도록 변환한다.  
+양의 방향에 대한 단위뿐 아니라 음의 방향에 대한 단위까지 스케일링하고자 할 때 사용한다.
+
+<br>
+<br>
+
+### 4. 로그변환 (Log transformation)
+<code>np.log1p(df['col'])</code>
+
+왜도와 첨도를 가진 변수를 정규분포에 가깝게 만들어준다. 큰 수치를 같은 비율의 작은 수치로 변환한다.
+
+<br>
+
+<code>np.expm1(df['col'])</code>
+
+원래 값으로 전환하고자 할 때 지수를 취해준다.
+
+<br>
+<br>
+
+### 5.  언더 샘플링 (Under sampling)
+불균형한 데이터 세트에서 높은 비율을 차지하던 클래스의 데이터 수를 줄임으로써 데이터 불균형을 해소한다.  
+학습에서 사용되는 전체 데이터 수를 급격하게 감소시켜 오히려 성능이 떨어질 수 있다.
+
+<br>
+
+<img src="./b_classifier/images/under_sampling.png" width="400px" style="margin-left: 20px">
+
+<br>
+<br>
+
+### 6. 오버 샘플링 (Over sampling)
+불균형한 데이터 세트에서 낮은 비율 클래스의 데이터 수를 늘림으로써 데이터 불균형을 해소한다.  
+오버 샘플링의 대표적인 방법에는 SMOTE(Synthetic Minority Over-sampling Technique)가 있다.
+
+<br>
+
+<img src="./b_classifier/images/over_sampling.png" width="400px" style="margin-left: 20px">
+
+<br>
+<br>
+
+### 7. SMOTE (Synthetic Minority Over-sampling Technique)
+반드시 학습 데이터 세트만 오버 샘플링 해야 한다.
+
+검증 혹은 테스트 데이터 세트를 오버 샘플링하는 경우 원본 데이터가 아닌 데이터에서 검증되기 때문에 올바른 검증이 되지 않는다.
+
+낮은 비율 클래스 데이터들의 최근접 이웃을 이용하여 새로운 데이터를 생성한다.
+
+동일한 데이터를 복제하는 것은 의미가 없기 때문에 일정한 거리를 떨어진 위치에 데이터를 생성하기 위함이다.
+
+- 오버 샘플링을 하게 되면 양성으로 예측하는 비율이 높아지기 때문에 정밀도가 감소하고 재현율이 증가한다.
+
+- 오버 샘플링을 정확히 수행하기 위해서는 category 타입을 사용하는 것보다 직접 인코딩해 주는 것이 좋다.
+
+<br>
+
+<img src="./b_classifier/images/smote.png" width="650px">
